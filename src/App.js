@@ -1,10 +1,12 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // ---------- API Service ----------
-const API_BASE_URL = 'https://6a01817236fb6ad04de10c7b.mockapi.io/api/app'; // Replace with your MockAPI URL
+const API_BASE_URL = 'https://6a01817236fb6ad04de10c7b.mockapi.io/api/app';
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: { 'Content-Type': 'application/json' }
@@ -18,22 +20,40 @@ const deleteItem = (id) => api.delete(`/items/${id}`);
 // ---------- Components ----------
 const Navbar = () => {
   const location = useLocation();
-  const navLinks = [
-    { path: '/', label: 'Dashboard' },
-    { path: '/add', label: 'Report Item' },
-    { path: '/about', label: 'About' }
-  ];
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      setUserName(JSON.parse(user).name);
+    } else {
+      setUserName('');
+    }
+  }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUserName('');
+    navigate('/');
+  };
+
+  // Don't show navbar on signup and login pages
+  if (location.pathname === '/' || location.pathname === '/login') {
+    return null;
+  }
+
   return (
     <nav className="bg-blue-600 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-white text-xl font-bold">🔍 Lost & Found Campus</Link>
-          <div className="flex space-x-6">
-            {navLinks.map(link => (
-              <Link key={link.path} to={link.path} className={`text-white hover:text-blue-200 transition ${location.pathname === link.path ? 'border-b-2 border-white' : ''}`}>
-                {link.label}
-              </Link>
-            ))}
+          <Link to="/dashboard" className="text-white text-xl font-bold">🔍 Lost & Found Campus</Link>
+          <div className="flex space-x-6 items-center">
+            <Link to="/dashboard" className="text-white hover:text-blue-200 transition">Dashboard</Link>
+            <Link to="/add" className="text-white hover:text-blue-200 transition">Report Item</Link>
+            <Link to="/about" className="text-white hover:text-blue-200 transition">About</Link>
+            <div className="text-white">Welcome, {userName}!</div>
+            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition">Logout</button>
           </div>
         </div>
       </div>
@@ -129,7 +149,7 @@ const AddItem = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const handleSubmit = async (itemData) => {
-    try { setLoading(true); await addItem({ ...itemData, date: new Date().toISOString() }); navigate('/'); } catch (error) { alert('Failed to add.'); } finally { setLoading(false); }
+    try { setLoading(true); await addItem({ ...itemData, date: new Date().toISOString() }); navigate('/dashboard'); } catch (error) { alert('Failed to add.'); } finally { setLoading(false); }
   };
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
@@ -150,7 +170,7 @@ const EditItem = () => {
     load();
   }, [id]);
   const handleSubmit = async (updatedData) => {
-    try { setSubmitting(true); await updateItem(id, updatedData); navigate('/'); } catch (error) { alert('Update failed.'); } finally { setSubmitting(false); }
+    try { setSubmitting(true); await updateItem(id, updatedData); navigate('/dashboard'); } catch (error) { alert('Update failed.'); } finally { setSubmitting(false); }
   };
   if (loading) return <div className="text-center py-8">Loading...</div>;
   if (!item) return <div className="text-center py-8 text-red-500">Item not found</div>;
@@ -173,17 +193,38 @@ const About = () => (
   </div>
 );
 
-// ---------- App ----------
+// ---------- App with Protected Routes ----------
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/add" element={<AddItem />} />
-          <Route path="/edit/:id" element={<EditItem />} />
-          <Route path="/about" element={<About />} />
+          {/* Public routes (no login required) */}
+          <Route path="/" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          
+          {/* Protected routes (require login) */}
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          } />
+          <Route path="/add" element={
+            <ProtectedRoute>
+              <AddItem />
+            </ProtectedRoute>
+          } />
+          <Route path="/edit/:id" element={
+            <ProtectedRoute>
+              <EditItem />
+            </ProtectedRoute>
+          } />
+          <Route path="/about" element={
+            <ProtectedRoute>
+              <About />
+            </ProtectedRoute>
+          } />
         </Routes>
       </div>
     </Router>
