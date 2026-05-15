@@ -112,4 +112,3 @@ lost-found-app/
 
 **Enjoy using the Lost & Found Campus App!** 🔍
 ```
-
