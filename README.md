@@ -1,177 +1,126 @@
-<<<<<<< HEAD
-#Lost & Found Campus
-A web-based platform for campus communities to report, track, and recover lost or found items.
+# Lost & Found Campus App
 
-#Features
-Report Items – Submit lost or found items with details like name, location, status, and description
+A web application that helps students and staff report, track, and recover lost or found items on campus. Built with **React**, **Tailwind CSS**, and **MockAPI**.
 
-Dashboard – View all reported items with real-time counts of lost vs. found items
+![Dashboard Preview](https://via.placeholder.com/800x400?text=Dashboard+Screenshot)
 
-Search & Filter – Filter by status (Lost/Found) or search by item name, location, or description
+---
 
-Manage Items – Edit or delete existing reports
+## 🚀 Features
 
-Responsive Design – Works on desktop, tablet, and mobile devices
+- **Report Items** – Report lost or found items with details (name, location, description, status).
+- **Dashboard** – View all items, live statistics (total, lost, found).
+- **Search & Filter** – Search by keyword and filter by Lost/Found status.
+- **CRUD Operations** – Create, Read, Update, Delete items.
+- **User Authentication** – Simple sign‑in via modal (name + email); user data saved in `localStorage`.
+- **User Profile** – Edit profile information and upload a profile picture.
+- **Dark / Light Mode** – Toggle themes; logo changes with mode, preference saved.
+- **Responsive Sidebar** – Collapsible navigation (Dashboard, Report Item, Profile).
+- **Sticky Search Bar** – Search bar stays at the top when scrolling.
+- **Modern UI** – Glass‑morphism effects, smooth animations, Spotify‑style footer.
 
-Tech Stack
-Frontend: React 18 with React Router DOM v6
+---
 
-Styling: Tailwind CSS
+## 🛠️ Tech Stack
 
-HTTP Client: Axios
+- **Frontend**: React 18 (functional components, hooks)
+- **Routing**: React Router v6 (`Link`, `Outlet`, dynamic routes)
+- **Styling**: Tailwind CSS (dark mode, utility classes)
+- **HTTP Client**: Axios
+- **Backend (mock)**: MockAPI.io – REST endpoints for items
+- **State Management**: React Context API (theme, user)
+- **Storage**: `localStorage` (user profile, theme preference)
+- **Icons**: React Icons
 
-API: MockAPI.io (mock backend)
+---
 
-Getting Started
-Prerequisites
-Node.js (v14 or higher)
+## 📁 Project Structure
 
-npm or yarn
+```
+lost-found-app/
+├── public/
+├── src/
+│   ├── assets/               # Logo images
+│   ├── components/           # Footer, ItemCard, ItemForm, Logo, Sidebar
+│   ├── contexts/             # ThemeContext, UserContext
+│   ├── pages/                # Home, Profile, AddItem, EditItem
+│   ├── services/             # api.js (Axios config)
+│   ├── App.jsx
+│   ├── index.js
+│   └── index.css
+├── .gitignore
+├── package.json
+├── tailwind.config.js
+└── README.md
+```
 
-Installation
-Clone the repository
+---
 
-bash
-git clone https://github.com/yourusername/lost-found-campus.git
-cd lost-found-campus
-Install dependencies
+## ⚙️ Installation & Setup
 
-bash
-npm install
-Configure API endpoint
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/littlegithu/lostandfoundapp.git
+   cd lostandfoundapp
+   ```
 
-Open src/App.jsx and update the API_BASE_URL with your MockAPI endpoint:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-javascript
-const API_BASE_URL = 'https://your-mockapi-endpoint.mockapi.io/api/app';
-Start the development server
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
+   The app will open at `http://localhost:3000`.
 
-bash
-npm run dev
-Open http://localhost:5173 in your browser
+> **Note:** The default MockAPI endpoint is already configured. You can replace it with your own in `src/services/api.js`.
 
-Project Structure
-text
-src/
-├── App.jsx           # Main application with all components
-├── main.jsx         # Entry point
-└── index.css        # Tailwind CSS imports
-API Endpoints (MockAPI)
-Method	Endpoint	Description
-GET	/items	Get all items
-GET	/items/:id	Get single item
-POST	/items	Create new item
-PUT	/items/:id	Update item
-DELETE	/items/:id	Delete item
-Usage
-Reporting an Item
-Click "Report Item" in the navigation bar
+---
 
-Fill in the item details (name, location, status, description)
+## 🧪 Usage
 
-Click "Submit Report"
+1. **Sign In** – Click the **Sign In** button on the dashboard, enter your name and email. Your profile will be saved automatically.
+2. **Dashboard** – View all items. Use the search bar and filter to find specific items.
+3. **Report an Item** – Go to the `Report Item` page, fill in the form, and submit.
+4. **Edit / Delete** – On any item card, click **Edit** to modify details or **Delete** to remove it.
+5. **Profile** – Click `Profile` in the sidebar to update your personal information and upload a profile picture.
+6. **Dark Mode** – Click the sun/moon icon in the top‑right corner to toggle the theme.
 
-Searching & Filtering
-Use the search bar to find items by name, location, or description
+---
 
-Use the dropdown to filter by Lost or Found status
+## 📡 API Endpoints (MockAPI)
 
-Managing Items
-Click "Edit" on any item card to modify details
+| Method | Endpoint          | Description          |
+|--------|-------------------|----------------------|
+| GET    | `/items`          | Fetch all items      |
+| GET    | `/items/:id`      | Fetch a single item  |
+| POST   | `/items`          | Create a new item    |
+| PUT    | `/items/:id`      | Update an item       |
+| DELETE | `/items/:id`      | Delete an item       |
 
-Click "Delete" to remove an item (confirmation required)
+> The default URL is `https://6a01817236fb6ad04de10c7b.mockapi.io/api/app`. Replace it with your own if needed.
 
-Screenshots
-Dashboard	Report Form
-View all items with search/filter	Submit new lost/found reports
-Customization
-Styling
-Tailwind CSS is configured. To customize colors or theme, update tailwind.config.js:
+---
 
-javascript
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        primary: '#2563eb',
-      }
-    }
-  }
-}
+## 👨‍🎓 Author
 
+**Shadrack Githu** – [GitHub](https://github.com/littlegithu)
 
+---
 
-Project Link:https://github.com/littlegithu/lostandfoundapp
+## 🙏 Acknowledgements
 
-=======
-# Getting Started with Create React App
+- [MockAPI](https://mockapi.io) – free mock REST API
+- [HeroUI](https://heroui.com) – component library (modal, buttons)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+**Enjoy using the Lost & Found Campus App!** 🔍
+```
 
-In the project directory, you can run:
+Just copy the entire block above, go to your GitHub repository, click **Add file** → **Create new file** (or edit the existing README), paste it in, and commit. Your README will be live immediately.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> ea0ed5c2aeda5c9aadc0222e2b9d28c46badafbb
