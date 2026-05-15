@@ -2,8 +2,6 @@
 
 A web application that helps students and staff report, track, and recover lost or found items on campus. Built with **React**, **Tailwind CSS**, and **MockAPI**.
 
-![Dashboard Preview](https://via.placeholder.com/800x400?text=Dashboard+Screenshot)
-
 ---
 
 ## 🚀 Features
@@ -103,13 +101,6 @@ lost-found-app/
 > The default URL is `https://6a01817236fb6ad04de10c7b.mockapi.io/api/app`. Replace it with your own if needed.
 
 ---
-
-## 👨‍🎓 Author
-
-**Shadrack Githu** – [GitHub](https://github.com/littlegithu)
-
----
-
 ## 🙏 Acknowledgements
 
 - [MockAPI](https://mockapi.io) – free mock REST API
