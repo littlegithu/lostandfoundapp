@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import AddItem from './pages/AddItem';
 import EditItem from './pages/EditItem';
+import ReportMissingItem from './components/ReportMissingItem';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                   <Route path="/add" element={<AddItem />} />
                   <Route path="/edit/:id" element={<EditItem />} />
                   <Route path="/profile" element={<Profile />} />
+                  <Route path="/report-missing" element={<ReportMissingItem />} />
                 </Routes>
                 <Footer />
               </main>
