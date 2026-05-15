@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+#Lost & Found Campus
+A web-based platform for campus communities to report, track, and recover lost or found items.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#Features
+Report Items – Submit lost or found items with details like name, location, status, and description
 
-## Available Scripts
+Dashboard – View all reported items with real-time counts of lost vs. found items
 
-In the project directory, you can run:
+Search & Filter – Filter by status (Lost/Found) or search by item name, location, or description
 
-### `npm start`
+Manage Items – Edit or delete existing reports
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Responsive Design – Works on desktop, tablet, and mobile devices
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Tech Stack
+Frontend: React 18 with React Router DOM v6
 
-### `npm test`
+Styling: Tailwind CSS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+HTTP Client: Axios
 
-### `npm run build`
+API: MockAPI.io (mock backend)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Getting Started
+Prerequisites
+Node.js (v14 or higher)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+npm or yarn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Installation
+Clone the repository
 
-### `npm run eject`
+bash
+git clone https://github.com/yourusername/lost-found-campus.git
+cd lost-found-campus
+Install dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+bash
+npm install
+Configure API endpoint
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Open src/App.jsx and update the API_BASE_URL with your MockAPI endpoint:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+javascript
+const API_BASE_URL = 'https://your-mockapi-endpoint.mockapi.io/api/app';
+Start the development server
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+bash
+npm run dev
+Open http://localhost:5173 in your browser
 
-## Learn More
+Project Structure
+text
+src/
+├── App.jsx           # Main application with all components
+├── main.jsx         # Entry point
+└── index.css        # Tailwind CSS imports
+API Endpoints (MockAPI)
+Method	Endpoint	Description
+GET	/items	Get all items
+GET	/items/:id	Get single item
+POST	/items	Create new item
+PUT	/items/:id	Update item
+DELETE	/items/:id	Delete item
+Usage
+Reporting an Item
+Click "Report Item" in the navigation bar
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Fill in the item details (name, location, status, description)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Click "Submit Report"
 
-### Code Splitting
+Searching & Filtering
+Use the search bar to find items by name, location, or description
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Use the dropdown to filter by Lost or Found status
 
-### Analyzing the Bundle Size
+Managing Items
+Click "Edit" on any item card to modify details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Click "Delete" to remove an item (confirmation required)
 
-### Making a Progressive Web App
+Screenshots
+Dashboard	Report Form
+View all items with search/filter	Submit new lost/found reports
+Customization
+Styling
+Tailwind CSS is configured. To customize colors or theme, update tailwind.config.js:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+javascript
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#2563eb',
+      }
+    }
+  }
+}
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+Project Link:https://github.com/littlegithu/lostandfoundapp
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
