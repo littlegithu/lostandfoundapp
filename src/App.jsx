@@ -8,19 +8,8 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import AddItem from './pages/AddItem';
 import EditItem from './pages/EditItem';
-import Signup from './components/Signup';
-import Login from './components/Login';
 
-// Protected Route wrapper
-const ProtectedRoute = ({ children }) => {
-  const user = localStorage.getItem('user') || localStorage.getItem('lostFoundUser');
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-  return children;
-};
-
-// Layout with Sidebar + Footer (for authenticated pages)
+// Layout with Sidebar + Footer (for all pages)
 const MainLayout = ({ children }) => {
   return (
     <div className="flex flex-1">
@@ -40,49 +29,29 @@ function App() {
         <Router>
           <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
             <Routes>
-              {/* Public routes (no sidebar, no login required) */}
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/login" element={<Login />} />
-              
-              {/* Protected routes (require login, have sidebar + footer) */}
+              {/* All routes are accessible – sign‑in happens inside Home via modal */}
               <Route path="/" element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <Home />
-                  </MainLayout>
-                </ProtectedRoute>
-              } />
-              <Route path="/dashboard" element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <Home />
-                  </MainLayout>
-                </ProtectedRoute>
+                <MainLayout>
+                  <Home />
+                </MainLayout>
               } />
               <Route path="/add" element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <AddItem />
-                  </MainLayout>
-                </ProtectedRoute>
+                <MainLayout>
+                  <AddItem />
+                </MainLayout>
               } />
               <Route path="/edit/:id" element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <EditItem />
-                  </MainLayout>
-                </ProtectedRoute>
+                <MainLayout>
+                  <EditItem />
+                </MainLayout>
               } />
               <Route path="/profile" element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <Profile />
-                  </MainLayout>
-                </ProtectedRoute>
+                <MainLayout>
+                  <Profile />
+                </MainLayout>
               } />
-              
-              {/* Catch all - redirect to login */}
-              <Route path="*" element={<Navigate to="/login" replace />} />
+              {/* Redirect any unknown path to home */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
         </Router>
