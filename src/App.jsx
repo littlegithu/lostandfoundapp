@@ -1,15 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
-import { UserProvider } from './contexts/UserContext';
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import Sidebar from './components/Sidebar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import AddItem from './pages/AddItem';
 import EditItem from './pages/EditItem';
+import Login from './auth/Login';
+import Signup from './auth/Signup';
 
-// Layout with Sidebar + Footer (for all pages)
+// Layout with Sidebar + Footer (for authenticated pages only)
 const MainLayout = ({ children }) => {
   return (
     <div className="flex flex-1">
@@ -25,37 +28,50 @@ const MainLayout = ({ children }) => {
 function App() {
   return (
     <ThemeProvider>
-      <UserProvider>
+      <AuthProvider>
         <Router>
           <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
             <Routes>
-              {/* All routes are accessible – sign‑in happens inside Home via modal */}
+              {/* Public routes - NO SIDEBAR, NO LOGIN REQUIRED */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              
+              {/* Protected routes - REQUIRE LOGIN + HAVE SIDEBAR */}
               <Route path="/" element={
-                <MainLayout>
-                  <Home />
-                </MainLayout>
+                <ProtectedRoute>
+                  <MainLayout>
+                    <Home />
+                  </MainLayout>
+                </ProtectedRoute>
               } />
               <Route path="/add" element={
-                <MainLayout>
-                  <AddItem />
-                </MainLayout>
+                <ProtectedRoute>
+                  <MainLayout>
+                    <AddItem />
+                  </MainLayout>
+                </ProtectedRoute>
               } />
               <Route path="/edit/:id" element={
-                <MainLayout>
-                  <EditItem />
-                </MainLayout>
+                <ProtectedRoute>
+                  <MainLayout>
+                    <EditItem />
+                  </MainLayout>
+                </ProtectedRoute>
               } />
               <Route path="/profile" element={
-                <MainLayout>
-                  <Profile />
-                </MainLayout>
+                <ProtectedRoute>
+                  <MainLayout>
+                    <Profile />
+                  </MainLayout>
+                </ProtectedRoute>
               } />
-              {/* Redirect any unknown path to home */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              
+              {/* Redirect any unknown path to login */}
+              <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
           </div>
         </Router>
-      </UserProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
