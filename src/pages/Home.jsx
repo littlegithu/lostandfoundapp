@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from '../contexts/UserContext';
+import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { getItems, deleteItem } from '../services/api';
 import ItemCard from '../components/ItemCard';
 import { FaUserCircle, FaSun, FaMoon } from 'react-icons/fa';
 
 const Home = () => {
-  const { user, login, logout } = useUser();
+  const { user, logout } = useAuth();
   const { darkMode, toggleDarkMode } = useTheme();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,14 +40,6 @@ const Home = () => {
     }
   };
 
-  const handleSignIn = () => {
-    const name = prompt('Enter your name:');
-    if (!name) return;
-    const email = prompt('Enter your email:');
-    if (!email) return;
-    login({ name, email, username: name.toLowerCase().replace(/\s/g, ''), firstName: name.split(' ')[0], role: 'Subscriber' });
-  };
-
   const filteredItems = items.filter(item => {
     const matchesStatus = filterStatus === 'All' || item.status === filterStatus;
     const matchesSearch = searchQuery === '' ||
@@ -79,7 +71,7 @@ const Home = () => {
                       <FaUserCircle size={24} className="text-gray-500 dark:text-gray-400" />
                     )}
                   </div>
-                  <span className="text-sm text-gray-700 dark:text-gray-300">Welcome, {user.firstName || user.name}!</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Welcome, {user.firstName || user.name?.split(' ')[0] || user.name}!</span>
                 </div>
                 <button
                   onClick={logout}
@@ -90,8 +82,9 @@ const Home = () => {
                 </button>
               </>
             ) : (
+              // This should never show because ProtectedRoute redirects to login
               <button
-                onClick={handleSignIn}
+                onClick={() => window.location.href = '/login'}
                 className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-full px-5 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-2"
               >
                 <FaUserCircle size={18} />

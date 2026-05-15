@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useUser } from '../contexts/UserContext';
+import { useAuth } from '../contexts/AuthContext';
 import { FaUserCircle } from 'react-icons/fa';
 
 const Profile = () => {
-  const { user, updateUser } = useUser();
+  const { user, updateUser } = useAuth();
   const [formData, setFormData] = useState({
     username: '', firstName: '', nickname: '', role: '', lastName: '', displayName: '',
     email: '', whatsapp: '', website: '', telegram: '', bio: '', avatar: ''
@@ -56,7 +56,7 @@ const Profile = () => {
       <div className="p-8">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 text-center">
           <p className="text-gray-600 dark:text-gray-400">Please sign in to view your profile.</p>
-          <Link to="/" className="text-blue-600 dark:text-blue-400 hover:underline mt-2 inline-block">Go to Dashboard</Link>
+          <Link to="/login" className="text-blue-600 dark:text-blue-400 hover:underline mt-2 inline-block">Go to Login</Link>
         </div>
       </div>
     );
