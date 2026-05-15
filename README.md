@@ -122,5 +122,3 @@ lost-found-app/
 **Enjoy using the Lost & Found Campus App!** 🔍
 ```
 
-Just copy the entire block above, go to your GitHub repository, click **Add file** → **Create new file** (or edit the existing README), paste it in, and commit. Your README will be live immediately.
-
