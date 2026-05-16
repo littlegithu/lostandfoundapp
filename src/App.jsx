@@ -11,6 +11,8 @@ import AddItem from './pages/AddItem';
 import EditItem from './pages/EditItem';
 import Login from './auth/Login';
 import Signup from './auth/Signup';
+import ItemDetail from './components/ItemDetail';
+import  { useState, useEffect } from 'react';
 
 // Layout with Sidebar + Footer (for authenticated pages only)
 const MainLayout = ({ children }) => {
@@ -26,6 +28,23 @@ const MainLayout = ({ children }) => {
 };
 
 function App() {
+
+  const [items, setItems] = useState([]);
+  
+  useEffect(() => {
+    const stored = localStorage.getItem('lostAndFoundItems');
+    if (stored) {
+      setItems(JSON.parse(stored));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('lostAndFoundItems', JSON.stringify(items));
+  }, [items]);
+
+  const handleDeleteItem = (id) => {
+    setItems(prev => prev.filter(item => item.id !== id));
+  };
   return (
     <ThemeProvider>
       <AuthProvider>
@@ -65,7 +84,16 @@ function App() {
                   </MainLayout>
                 </ProtectedRoute>
               } />
-              
+
+              {/* item detail route*/}
+              <Route path="/item/:id" element={
+                <ProtectedRoute>
+                  <MainLayout>
+                    <ItemDetail items={items} onDelete={handleDeleteItem} />
+                  </MainLayout>
+                </ProtectedRoute>
+              } />
+
               {/* Redirect any unknown path to login */}
               <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>
